@@ -1,4 +1,4 @@
-const usersRepository = require('./users/users-repository');
+const usersRepository = require('./user-repository');
 const bcrypt = require('bcrypt');
 
 async function getUsers() 
@@ -51,9 +51,15 @@ async function checkLogin(email, password)
   };
 }
 
+async function deleteUser(id) 
+{
+  return await usersRepository.deleteUser(id);
+}
+
 module.exports = 
 {
   getUsers,
   createUser,
   checkLogin,
+  deleteUser,
 };

@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 //Route
-const usersRoute = require('./api/components/users/users-route');
+const usersRoute = require('./api/components/users/user-route');
 
 const app = express();
 const PORT = 3000;

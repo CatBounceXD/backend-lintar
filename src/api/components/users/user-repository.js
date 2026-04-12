@@ -1,4 +1,4 @@
-const User = require('src/models/users-models');
+const User = require('../../../models/user-models');
 
 async function getUsers() 
 {
@@ -22,9 +22,15 @@ async function getUserByEmail(email)
   return User.findOne({ email: email });
 }
 
+async function deleteUser(id) 
+{
+  return User.findByIdAndDelete(id);
+}
+
 module.exports = 
 {
   getUsers,
   createUser,
   getUserByEmail,
+  deleteUser,
 };

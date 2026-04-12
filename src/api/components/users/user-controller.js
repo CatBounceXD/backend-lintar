@@ -1,20 +1,17 @@
-const usersService = require('./users-service');
+const usersService = require('./user-service');
 
-// return 200
-async function getUsers(req, res) 
+async function getUsers(req, res, next) 
 {
   try 
   {
     const users = await usersService.getUsers();
     return res.status(200).json({ status: 'Sukses', data: users });
-  } 
-  catch (error) 
-  {
-    return res.status(500).json({ status: 'Error', message: error.message });
+  } catch (error) {
+    next(error);
   }
 }
 
-async function createUser(req, res) 
+async function createUser(req, res, next) 
 {
   try 
   {
@@ -24,11 +21,11 @@ async function createUser(req, res)
   } 
   catch (error) 
   {
-    return res.status(500).json({ status: 'Error', message: error.message });
+    next(error);
   }
 }
 
-async function login(req, res) 
+async function login(req, res, next) 
 {
   try 
   {
@@ -36,23 +33,44 @@ async function login(req, res)
     const user = await usersService.checkLogin(email, password);
 
     if (!user) 
-      return res.status(401).json({ status: 'Gagal', message: 'Email atau password salah!' });
-
-    return res.status(200).json
-    ({ 
-      status: 'Sukses', 
-      message: 'Login berhasil!',
-      data: user 
-    });
+    {
+      const error = new Error('Email atau password salah!'); // Buat Error baru
+      error.statusCode = 401;
+      throw error;
+    }
+    return res.status(200).json({ status: 'Sukses', message: 'Login berhasil!', data: user });
   } 
   catch (error) 
   {
-    return res.status(500).json({ status: 'Error', message: error.message });
+    next(error);
   }
 }
 
-module.exports = {
+async function deleteUser(req, res, next) 
+{
+  try 
+  {
+    const id = req.params.id; 
+    const deletedUser = await usersService.deleteUser(id);
+
+    if (!deletedUser) 
+    {
+      const error = new Error('User tidak ditemukan!');
+      error.statusCode = 404;
+      throw error;
+    }
+    return res.status(200).json({ status: 'Sukses', message: 'User berhasil dihapus!' });
+  } 
+  catch (error) 
+  {
+    next(error); // Lempar ke satpam!
+  }
+}
+
+module.exports = 
+{
   getUsers,
   createUser,
   login,
+  deleteUser,
 };

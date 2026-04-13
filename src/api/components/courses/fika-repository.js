@@ -1,4 +1,4 @@
-const Course = require('./courses.model');
+const Course = require('./courses.model'); // error : nama directory salah dan service filenya tidak sama
 
 class CourseRepository {
   async findAll() {

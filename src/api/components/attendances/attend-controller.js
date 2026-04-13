@@ -1,4 +1,4 @@
-const attendanceService = require('../services/attendance.service');
+const attendanceService = require('../services/attendance.service'); // error : nama directory salah dan service filenya tidak sama
 
 class AttendanceController {
     // POST /api/attendances

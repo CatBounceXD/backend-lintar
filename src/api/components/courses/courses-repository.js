@@ -1,4 +1,4 @@
-const Course = require('./courses.model');
+const Course = require('../../../models/courses-models');
 
 class CourseRepository {
   async findAll() {

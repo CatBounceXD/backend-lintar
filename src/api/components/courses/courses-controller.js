@@ -1,4 +1,4 @@
-const CourseService = require('./courses.service');
+const CourseService = require('./courses-service');
 
 class CourseController {
   async getCourses(req, res) {

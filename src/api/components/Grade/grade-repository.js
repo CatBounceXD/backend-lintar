@@ -1,4 +1,4 @@
-const Grade = require('../models/Grade'); //titik titik kurang banyak! lihar user repository punya saya!
+const Grade = require('../../../models/grade-model'); //titik titik kurang banyak! lihar user repository punya saya!
 
 class GradeRepository {
   async createGrade(data) {

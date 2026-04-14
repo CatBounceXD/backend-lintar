@@ -29,7 +29,6 @@ async function createUser(nama, email, password, role)
 
   return await usersRepository.createUser(nama, email, hashedPass, role);
 }
-
 // Verify
 async function checkLogin(email, password) 
 {
@@ -63,3 +62,5 @@ module.exports =
   checkLogin,
   deleteUser,
 };
+
+// Process Logic

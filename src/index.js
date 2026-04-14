@@ -4,6 +4,8 @@ const mongoose = require('mongoose');
 
 //Route
 const usersRoute = require('./api/components/users/user-route');
+const attendRoute = require('./api/components/attendances/attend-route');
+const courseRoute = require('./api/components/courses/fika-route'); //perlu diganti
 
 const app = express();
 const PORT = 3000;
@@ -27,6 +29,8 @@ app.get('/', (req, res) =>
 
 //Route
 app.use('/users', usersRoute);
+app.use('/attendances', attendRoute);
+app.use('/courses', courseRoute);
 
 app.listen(PORT, () => 
 {

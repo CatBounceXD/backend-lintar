@@ -1,3 +1,5 @@
+const CourseService = require('./courses-service');
+
 const CourseService = require('./courses.service'); // error : nama directory salah dan service filenya tidak sama
 
 class CourseController {

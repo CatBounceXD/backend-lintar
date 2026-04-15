@@ -1,4 +1,4 @@
-const attendanceRepository = require('../repositories/attendance.repository'); // error : nama directory salah dan service filenya tidak sama
+const attendanceRepository = require('./attend-repository');
 
 class AttendanceService {
     async recordAttendance(data) {

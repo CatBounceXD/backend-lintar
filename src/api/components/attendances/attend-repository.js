@@ -1,4 +1,4 @@
-const Attendance = require('../models/attendance.model'); // error : nama directory salah dan service filenya tidak sama
+const Attendance = require('../../../models/attend-model');
 
 class AttendanceRepository {
     async createAttendance(data) {

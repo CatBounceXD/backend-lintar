@@ -5,7 +5,9 @@ const mongoose = require('mongoose');
 //Route
 const usersRoute = require('./api/components/users/user-route');
 const attendRoute = require('./api/components/attendances/attend-route');
-const courseRoute = require('./api/components/courses/fika-route'); //perlu diganti
+const courseRoute = require('./api/components/courses/courses-route');
+const gradeRoute = require('./api/components/Grade/grade-route');
+const scheduleRoute = require('./api/components/schedules/schedule-route'); //perlu diganti
 
 const app = express();
 const PORT = 3000;
@@ -31,6 +33,8 @@ app.get('/', (req, res) =>
 app.use('/users', usersRoute);
 app.use('/attendances', attendRoute);
 app.use('/courses', courseRoute);
+app.use('/grade', gradeRoute);
+app.use('/schedules', scheduleRoute);
 
 app.listen(PORT, () => 
 {

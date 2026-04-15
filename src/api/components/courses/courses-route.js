@@ -3,8 +3,6 @@ const router = express.Router();
 
 const CourseController = require('./courses-controller');
 
-const CourseController = require('./courses.controller'); 
-
 router.get('/', CourseController.getCourses);
 router.post('/', CourseController.createCourse);
 router.put('/:id', CourseController.updateCourse);

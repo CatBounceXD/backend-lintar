@@ -1,4 +1,4 @@
-const ScheduleRepository = require('./schedule.repository');
+const ScheduleRepository = require('./schedule-repository');
 
 class ScheduleService {
   async getAllSchedules() {

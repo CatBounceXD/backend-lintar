@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const gradeController = require('../controllers/gradeController'); // error : nama directory salah dan service filenya tidak sama
+const gradeController = require('./grade-controller');
 
 router.post('/', gradeController.create);
 router.get('/student/:studentId', gradeController.getHistory);

@@ -1,4 +1,4 @@
-const Schedule = require('../models/schedule.model');
+const Schedule = require('../../../models/schedule-model');
 
 class ScheduleRepository {
   async findAll() {

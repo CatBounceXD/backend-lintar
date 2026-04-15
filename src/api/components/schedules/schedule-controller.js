@@ -1,4 +1,4 @@
-const ScheduleService = require('../services/schedule.service');
+const ScheduleService = require('./schedule-service');
 
 class ScheduleController {
   async getAll(req, res) {

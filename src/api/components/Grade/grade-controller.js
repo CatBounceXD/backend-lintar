@@ -1,10 +1,13 @@
-const gradeService = require('../services/gradeService'); // error : nama directory salah dan service filenya tidak sama
+const gradeService = require('./grade-service.js');
 
 class GradeController {
   async create(req, res) {
     try {
       const result = await gradeService.inputGrade(req.body);
-      res.status(201).json({ message: 'Nilai berhasil diinput', data: result });
+      res.status(201).json({ 
+        message: 'Nilai berhasil diinput', 
+        data: result 
+      });
     } catch (error) {
       res.status(500).json({ error: error.message });
     }

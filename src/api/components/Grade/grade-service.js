@@ -1,4 +1,4 @@
-const gradeRepository = require('../repositories/gradeRepository');
+const gradeRepository = require('./grade-repository');
 
 class GradeService {
   async inputGrade(payload) {

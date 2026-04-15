@@ -1,4 +1,4 @@
-const attendanceRepository = require('../repositories/attendance-repository');
+const attendanceRepository = require('./attend-repository');
 
 class AttendanceService {
     async recordAttendance(data) {

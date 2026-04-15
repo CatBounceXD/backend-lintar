@@ -4,7 +4,6 @@ async function getUsers()
 {
   return User.find(); 
 }
-
 // Menyimpan data user baru ke MongoDB
 async function createUser(nama, email, password, role) 
 {
@@ -34,3 +33,5 @@ module.exports =
   getUserByEmail,
   deleteUser,
 };
+
+// Kyk Querry SQL dalam bentuk fungsi

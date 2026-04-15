@@ -1,4 +1,4 @@
-const gradeService = require('../services/gradeService');
+const gradeService = require('../services/gradeService'); // error : nama directory salah dan service filenya tidak sama
 
 class GradeController {
   async create(req, res) {

@@ -1,4 +1,4 @@
-const CourseRepository = require('./courses.repository');
+const CourseRepository = require('./courses-repository');
 
 class CourseService {
   async getAllCourses() {

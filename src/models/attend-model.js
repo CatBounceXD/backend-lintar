@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose'); // letak file attend-model.js salah! taro di folder models
 
 const attendanceSchema = new mongoose.Schema({
     user: { 

@@ -1,3 +1,5 @@
+const Course = require('../../../models/courses-models');
+
 const Course = require('./courses.model'); // error : nama directory salah dan service filenya tidak sama
 
 class CourseRepository {

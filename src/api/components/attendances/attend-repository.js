@@ -1,4 +1,4 @@
-const Attendance = require('../models/attendance.model');
+const Attendance = require('../models/attendance-model');
 
 class AttendanceRepository {
     async createAttendance(data) {

@@ -1,4 +1,4 @@
-const attendanceService = require('../services/attendance.service');
+const attendanceService = require('../services/attendance-service');
 
 class AttendanceController {
     // POST /api/attendances

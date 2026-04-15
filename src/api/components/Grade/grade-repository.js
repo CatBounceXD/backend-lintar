@@ -1,4 +1,4 @@
-const Grade = require('../models/Grade'); //titik titik kurang banyak! lihar user repository punya saya!
+const Grade = require('../../../models/grade-model');
 
 class GradeRepository {
   async createGrade(data) {
@@ -6,9 +6,10 @@ class GradeRepository {
   }
 
   async getGradesByStudent(studentId) {
+    // Mencari nilai berdasarkan ID mahasiswa dan menarik data matkul-nya juga
     return await Grade.find({ studentId })
-      .populate('courseId', 'name code') // Mengambil info mata kuliah
-      .populate('studentId', 'name nim'); // Mengambil info mahasiswa
+      .populate('courseId', 'name code') 
+      .populate('studentId', 'name nim');
   }
 }
 

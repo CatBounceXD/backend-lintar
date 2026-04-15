@@ -1,4 +1,4 @@
-const gradeRepository = require('../repositories/gradeRepository'); // error : nama directory salah dan service filenya tidak sama
+const gradeRepository = require('./grade-repository');
 
 class GradeService {
   async inputGrade(payload) {

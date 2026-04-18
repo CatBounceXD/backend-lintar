@@ -1,14 +1,12 @@
 const User = require('../../../models/user-models');
 
-async function getUsers() 
-{
+async function getUsers() {
   return User.find(); 
 }
 // Menyimpan data user baru ke MongoDB
-async function createUser(nama, email, password, role) 
-{
-  return User.create
-  ({
+async function createUser(no_induk, nama, email, password, role) {
+  return User.create ({
+    no_induk: no_induk,
     nama: nama,
     email: email,
     password: password,
@@ -16,18 +14,15 @@ async function createUser(nama, email, password, role)
   });
 }
 
-async function getUserByEmail(email) 
-{
+async function getUserByEmail(email) {
   return User.findOne({ email: email });
 }
 
-async function deleteUser(id) 
-{
+async function deleteUser(id) {
   return User.findByIdAndDelete(id);
 }
 
-module.exports = 
-{
+module.exports = {
   getUsers,
   createUser,
   getUserByEmail,

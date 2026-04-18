@@ -1,21 +1,31 @@
-const attendanceRepository = require('./attend-repository');
+const attendanceRepository = require('../repositories/attendance.repository');
 
 class AttendanceService {
-    async recordAttendance(data) {
-        // Logika bisnis bisa ditambahkan di sini.
-        // Contoh: Validasi jika mahasiswa sudah melakukan absen pada jadwal ini hari ini.
-        // const existing = await attendanceRepository.checkExisting(...);
-        // if(existing) throw new Error('Mahasiswa sudah absen');
+  async recordAttendance(data) {
+    const { user, schedule, status } = data;
+    const attendanceDate = data.date ? new Date(data.date) : new Date();
 
-        return await attendanceRepository.createAttendance(data);
+    const isDuplicate = await attendanceRepository.findDuplicate(user, schedule, attendanceDate);
+    if (isDuplicate) {
+      throw new Error('Mahasiswa ini sudah melakukan absensi untuk jadwal tersebut pada hari ini.');
     }
 
-    async getAttendancesBySchedule(scheduleId) {
-        if (!scheduleId) {
-            throw new Error('ID Jadwal tidak valid');
-        }
-        return await attendanceRepository.findAttendancesBySchedule(scheduleId);
+    const newAttendance = {
+      user,
+      schedule,
+      date: attendanceDate,
+      status
+    };
+
+    return await attendanceRepository.createAttendance(newAttendance);
+  }
+
+  async getScheduleAttendances(scheduleId) {
+    if (!scheduleId) {
+      throw new Error('ID Jadwal tidak valid.');
     }
+    return await attendanceRepository.findAttendancesBySchedule(scheduleId);
+  }
 }
 
 module.exports = new AttendanceService();

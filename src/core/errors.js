@@ -8,7 +8,6 @@ const errorTypes = {
   NOT_FOUND: { description: 'Empty response, not found', status: 404, code: 'NOT_FOUND_ERROR' },
 };
 
-// Fungsi untuk merakit error agar seragam
 const errorResponder = (errorType, message = '') => {
   const error = new Error(message);
 

@@ -9,6 +9,19 @@ class CourseController {
     }
   }
 
+  async getById(req, res) {
+    try {
+      // Pastikan Service Anda juga punya fungsi findById (atau getCourseById)
+      const course = await CourseService.getCourseById(req.params.id); 
+      if (!course) {
+        return res.status(404).json({ message: 'Course tidak ditemukan' });
+      }
+      res.status(200).json(course);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  }
+
   async createCourse(req, res) {
     try {
       const newCourse = await CourseService.createCourse(req.body);

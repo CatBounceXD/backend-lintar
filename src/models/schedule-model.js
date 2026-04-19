@@ -11,6 +11,7 @@ const scheduleSchema = new mongoose.Schema({
     ref: 'User', 
     required: true 
   },
+  
   hari: { type: String, required: true },
   jam_mulai: { type: String, required: true },
   jam_selesai: { type: String, required: true },

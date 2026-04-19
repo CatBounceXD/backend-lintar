@@ -1,9 +1,6 @@
-const express = require('express');
-const router = express.Router();
+const attendController = require('./attend-controller');
 
-const attendanceController = require('./attend-controller');
-
-router.post('/', attendanceController.create.bind(attendanceController));
-router.get('/schedule/:scheduleId', attendanceController.getBySchedule.bind(attendanceController));
-
-module.exports = router;
+module.exports = (app) => {
+  app.post('/attendances', attendController.create.bind(attendController));
+  app.get('/attendances/schedule/:scheduleId', attendController.getBySchedule.bind(attendController));
+};

@@ -17,6 +17,10 @@ class CourseService {
   async deleteCourse(id) {
     return await CourseRepository.delete(id);
   }
+
+  async getCourseById(id) {
+  return await CourseRepository.findById(id);
+}
 }
 
 module.exports = new CourseService();

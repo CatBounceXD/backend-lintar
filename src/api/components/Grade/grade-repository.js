@@ -7,9 +7,9 @@ class GradeRepository {
 
   async getGradesByStudent(studentId) {
     // Mencari nilai berdasarkan ID mahasiswa dan menarik data matkul-nya juga
-    return await Grade.find({ studentId })
-      .populate('courseId', 'name code') 
-      .populate('studentId', 'name nim');
+return await Grade.find({ studentId })
+  .populate('courseId', 'nama sks fakultas')
+  .populate('studentId', 'nama no_induk');
   }
 }
 

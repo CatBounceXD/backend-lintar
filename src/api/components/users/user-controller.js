@@ -1,4 +1,5 @@
 const usersService = require('./user-service');
+const {errorResponder, errorTypes } = require ('../../../core/errors');
 
 async function getUsers(req, res, next) {
   try { 
@@ -27,9 +28,7 @@ async function login(req, res, next) {
     const user = await usersService.checkLogin(email, password);
 
     if (!user) {
-      const error = new Error('Email atau password salah!'); // Buat Error baru
-      error.statusCode = 401;
-      throw error;
+        throw errorResponder( errorTypes.FORBIDDEN, 'Email atau password salah!' );
     }
     return res.status(200).json({ status: 'Success', message: 'Berhasil Login!', data: user });
   } 
@@ -44,19 +43,17 @@ async function deleteUser(req, res, next) {
     const deletedUser = await usersService.deleteUser(id);
 
     if (!deletedUser) {
-      const error = new Error('User tidak ditemukan!');
-      error.statusCode = 404;
-      throw error;
+      throw errorResponder( errorTypes.NOT_FOUND, 'User yang ingin dihapus tidak ada!');
     }
     return res.status(200).json({ status: 'Sukses', message: 'User berhasil didelete!' });
   } 
   catch (error) {
-    next(error); // Lempar ke satpam!
+    next(error);
   }
 }
 
 module.exports = {
- getUsers,
+  getUsers,
   createUser,
   login,
   deleteUser,

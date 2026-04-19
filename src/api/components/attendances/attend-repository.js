@@ -14,6 +14,19 @@ class AttendanceRepository {
             .populate('schedule', 'courseName time')
             .sort({ date: -1 }); 
     }
+
+    async findDuplicate(user, schedule, date) {
+    const startOfDay = new Date(date);
+    startOfDay.setHours(0, 0, 0, 0);
+    const endOfDay = new Date(date);
+    endOfDay.setHours(23, 59, 59, 999);
+
+    return await Attendance.findOne({
+        user: user,
+        schedule: schedule,
+        date: { $gte: startOfDay, $lte: endOfDay }
+    });
+}
 }
 
 module.exports = new AttendanceRepository();

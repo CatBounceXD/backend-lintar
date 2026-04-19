@@ -1,12 +1,17 @@
 const ScheduleService = require('./schedule-service');
+const {errorResponder,errorTypes} = require ('../../../core/errors');
 
 class ScheduleController {
   async getAll(req, res) {
     try {
       const data = await ScheduleService.getAllSchedules();
       res.status(200).json(data);
+
+      if(!data){
+        throw errorResponder(errorTypes.NOT_FOUND,'data tidak bisa didapatkan');
+      }
     } catch (error) {
-      res.status(500).json({ message: error.message });
+      next (error);
     }
   }
 
@@ -14,8 +19,12 @@ class ScheduleController {
     try {
       const data = await ScheduleService.createSchedule(req.body);
       res.status(201).json(data);
+
+      if(!data){
+        throw errorResponder(errorTypes.BAD_REQUEST,'data tidak bisa dibuat');
+      }
     } catch (error) {
-      res.status(400).json({ message: error.message });
+      next (error);
     }
   }
 
@@ -23,8 +32,12 @@ class ScheduleController {
     try {
       const data = await ScheduleService.getScheduleById(req.params.id);
       res.status(200).json(data);
+
+      if(!data){
+        throw errorResponder(errorTypes.NOT_FOUND,'tidak ditemukan');
+      }
     } catch (error) {
-      res.status(404).json({ message: error.message });
+      next (error);
     }
   }
 
@@ -33,7 +46,7 @@ class ScheduleController {
       const data = await ScheduleService.updateSchedule(req.params.id, req.body);
       res.status(200).json(data);
     } catch (error) {
-      res.status(400).json({ message: error.message });
+      next (error);
     }
   }
 
@@ -41,8 +54,12 @@ class ScheduleController {
     try {
       await ScheduleService.deleteSchedule(req.params.id);
       res.status(200).json({ message: 'Schedule deleted successfully' });
+
+      if(!data){
+        throw errorResponder(errorTypes.NOT_FOUND,'data yang ingin dihapus tidak ada');
+      }
     } catch (error) {
-      res.status(400).json({ message: error.message });
+      next (error);
     }
   }
 }

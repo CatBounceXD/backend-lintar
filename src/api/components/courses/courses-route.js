@@ -1,11 +1,9 @@
-const express = require('express');
-const router = express.Router();
+const courseController = require('./courses-controller');
 
-const CourseController = require('./courses-controller');
-
-router.get('/', CourseController.getCourses);
-router.post('/', CourseController.createCourse);
-router.put('/:id', CourseController.updateCourse);
-router.delete('/:id', CourseController.deleteCourse);
-
-module.exports = router;
+module.exports = (app) => {
+  app.get('/courses', courseController.getCourses);
+  app.post('/courses', courseController.createCourse);
+  app.get('/courses/:id', courseController.getById); // Tambahan untuk detail per ID
+  app.put('/courses/:id', courseController.updateCourse);
+  app.delete('/courses/:id', courseController.deleteCourse);
+};

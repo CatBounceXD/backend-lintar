@@ -1,7 +1,7 @@
 const attendanceService = require('./attend-service');
+const {errorResponder,errorTypes} = require('../../../core/errors');
 
 class AttendanceController {
-    // POST /api/attendances
     async create(req, res) {
         try {
             const { user, schedule, date, status } = req.body;
@@ -19,14 +19,10 @@ class AttendanceController {
                 data: result
             });
         } catch (error) {
-            return res.status(400).json({
-                success: false,
-                message: error.message || 'Gagal mencatat absensi'
-            });
+            throw errorResponder (errorTypes.INVALID_CREDENTIALS,'Absensi tidak berhasil dicatat');
         }
     }
 
-    // GET /api/attendances/schedule/:scheduleId
     async getBySchedule(req, res) {
         try {
             const { scheduleId } = req.params;

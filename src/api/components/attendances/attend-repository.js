@@ -8,11 +8,11 @@ class AttendanceRepository {
 
     async findAttendancesBySchedule(scheduleId) {
         return await Attendance.find({ schedule: scheduleId })
-            // Mengambil detail mahasiswa (misal: nama dan nim)
+            //Detail mahasiswa
             .populate('user', 'name nim') 
-            // Mengambil detail jadwal (misal: nama mata kuliah)
+            //Detail jadwal kuloah
             .populate('schedule', 'courseName time')
-            .sort({ date: -1 }); // Urutkan dari yang terbaru
+            .sort({ date: -1 }); 
     }
 }
 

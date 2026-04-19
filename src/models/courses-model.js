@@ -6,7 +6,7 @@ const courseSchema = new mongoose.Schema({
   semester: { type: Number, required: true },
   fakultas: { 
     type: String, 
-    enum: ['Teknik', 'Farmasi', 'Hukum', 'Ekonomi', 'MIPA'], 
+    enum: ['Teknik', 'Kedokteran', 'Hukum', 'TI', 'FIKOM', 'FEB', 'Psikologi'], 
     required: true 
   },
   link_dokumen: { type: String }

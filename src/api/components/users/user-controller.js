@@ -11,6 +11,25 @@ async function getUsers(req, res, next) {
   }
 }
 
+async function getUsersByRole(req, res, next) {
+  try {
+    const roleReq = req.params.role; 
+
+    if (roleReq !== 'dosen' && roleReq !== 'mahasiswa') {
+      throw errorResponder( errorTypes.FORBIDDEN, 'Invalid Roles')
+    }
+    const users = await usersService.getUsersByRole(roleReq);
+    
+    return res.status(200).json({ 
+      status: 'Success', 
+      count: users.length, 
+      data: users 
+    });
+  } catch (error) {
+    next(error);
+  }
+}
+
 async function createUser(req, res, next) {
   try {
     const { no_induk, nama, email, password, role } = req.body;
@@ -57,6 +76,7 @@ module.exports = {
   createUser,
   login,
   deleteUser,
+  getUsersByRole,
 };
 
 // ngecek inpui

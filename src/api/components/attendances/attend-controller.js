@@ -1,6 +1,5 @@
 const attendanceService = require('./attend-service');
 const {errorResponder,errorTypes} = require('../../../core/errors');
-
 class AttendanceController {
     async create(req, res) {
         try {
@@ -26,7 +25,7 @@ class AttendanceController {
     async getBySchedule(req, res) {
         try {
             const { scheduleId } = req.params;
-            const results = await attendanceService.getAttendancesBySchedule(scheduleId);
+            const results = await attendanceService.getScheduleAttendances(scheduleId);
 
             return res.status(200).json({
                 success: true,
@@ -37,6 +36,24 @@ class AttendanceController {
             return res.status(400).json({
                 success: false,
                 message: error.message || 'Gagal mengambil data absensi'
+            });
+        }
+    }
+
+    async getByUser(req, res) {
+        try {
+            const { userId } = req.params;
+            const results = await attendanceService.getUserAttendances(userId);
+
+            return res.status(200).json({
+                success: true,
+                count: results.length,
+                data: results
+            });
+        } catch (error) {
+            return res.status(400).json({
+                success: false,
+                message: error.message || 'Gagal mengambil data absensi mahasiswa'
             });
         }
     }

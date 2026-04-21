@@ -7,7 +7,7 @@ Proyek ini adalah RESTAPI yang dibangun menggunakan Node.js, Express.js, dan Mon
 * 535250167 - Sekar Aruma Putri 
 * 535250175 - Yael Rehuellah 
 * 535250177 - Syafiqa Aida Purwati
-*
+* 535250159 - Sumayya Kaylani
 
 ## How to Run
 1. Git Clone repo ini

@@ -1,65 +1,75 @@
 const ScheduleService = require('./schedule-service');
-const {errorResponder,errorTypes} = require ('../../../core/errors');
+const { errorResponder, errorTypes } = require('../../../core/errors');
 
 class ScheduleController {
-  async getAll(req, res) {
+  async getAll(req, res, next) {
     try {
       const data = await ScheduleService.getAllSchedules();
-      res.status(200).json(data);
-
-      if(!data){
-        throw errorResponder(errorTypes.NOT_FOUND,'data tidak bisa didapatkan');
+      
+      if (!data || data.length === 0) {
+        throw errorResponder(errorTypes.NOT_FOUND, 'Jadwal tidak bisa didapatkan');
       }
+      
+      return res.status(200).json(data);
     } catch (error) {
-      next (error);
+      next(error);
     }
   }
 
-  async create(req, res) {
+  async create(req, res, next) {
     try {
       const data = await ScheduleService.createSchedule(req.body);
-      res.status(201).json(data);
-
-      if(!data){
-        throw errorResponder(errorTypes.BAD_REQUEST,'data tidak bisa dibuat');
+      
+      if (!data) {
+        throw errorResponder(errorTypes.BAD_REQUEST, 'Jadwal tidak bisa dibuat');
       }
+      
+      return res.status(201).json(data);
     } catch (error) {
-      next (error);
+      next(error);
     }
   }
 
-  async getById(req, res) {
+  async getById(req, res, next) {
     try {
       const data = await ScheduleService.getScheduleById(req.params.id);
-      res.status(200).json(data);
-
-      if(!data){
-        throw errorResponder(errorTypes.NOT_FOUND,'tidak ditemukan');
+      
+      if (!data) {
+        throw errorResponder(errorTypes.NOT_FOUND, 'Jadwal tidak ditemukan');
       }
+      
+      return res.status(200).json(data);
     } catch (error) {
-      next (error);
+      next(error);
     }
   }
 
-  async update(req, res) {
+  async update(req, res, next) {
     try {
       const data = await ScheduleService.updateSchedule(req.params.id, req.body);
-      res.status(200).json(data);
+      
+      if (!data) {
+        throw errorResponder(errorTypes.NOT_FOUND, 'Jadwal yang ingin diupdate tidak ditemukan');
+      }
+
+      return res.status(200).json(data);
     } catch (error) {
-      next (error);
+      next(error);
     }
   }
 
-  async delete(req, res) {
+  async delete(req, res, next) {
     try {
-      await ScheduleService.deleteSchedule(req.params.id);
-      res.status(200).json({ message: 'Schedule deleted successfully' });
+      // Perbaikan: tampung ke dalam variabel untuk dicek apakah datanya ada
+      const deletedSchedule = await ScheduleService.deleteSchedule(req.params.id);
 
-      if(!data){
-        throw errorResponder(errorTypes.NOT_FOUND,'data yang ingin dihapus tidak ada');
+      if (!deletedSchedule) {
+        throw errorResponder(errorTypes.NOT_FOUND, 'Jadwal yang ingin dihapus tidak ada');
       }
+
+      return res.status(200).json({ message: 'Jadwal dihapus' });
     } catch (error) {
-      next (error);
+      next(error);
     }
   }
 }

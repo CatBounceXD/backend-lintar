@@ -1,51 +1,69 @@
 const CourseService = require('./courses-service');
+const { errorResponder, errorTypes } = require('../../../core/errors');
+
 class CourseController {
-  async getCourses(req, res) {
+  async getCourses(req, res, next) {
     try {
       const courses = await CourseService.getAllCourses();
-      res.status(200).json(courses);
+      return res.status(200).json(courses);
     } catch (error) {
-      res.status(500).json({ message: error.message });
+      next(error);
     }
   }
 
-  async getById(req, res) {
+  async getById(req, res, next) {
     try {
-      // Pastikan Service Anda juga punya fungsi findById (atau getCourseById)
       const course = await CourseService.getCourseById(req.params.id); 
+      
       if (!course) {
-        return res.status(404).json({ message: 'Course tidak ditemukan' });
+        throw errorResponder(errorTypes.NOT_FOUND, 'Course tidak ditemukan');
       }
-      res.status(200).json(course);
+      
+      return res.status(200).json(course);
     } catch (error) {
-      res.status(500).json({ message: error.message });
+      next(error);
     }
   }
 
-  async createCourse(req, res) {
+  async createCourse(req, res, next) {
     try {
       const newCourse = await CourseService.createCourse(req.body);
-      res.status(201).json(newCourse);
+      
+      if (!newCourse) {
+        throw errorResponder(errorTypes.BAD_REQUEST, 'Course gagal dibuat');
+      }
+
+      return res.status(201).json(newCourse);
     } catch (error) {
-      res.status(400).json({ message: error.message });
+      next(error);
     }
   }
 
-  async updateCourse(req, res) {
+  async updateCourse(req, res, next) {
     try {
       const updated = await CourseService.updateCourse(req.params.id, req.body);
-      res.status(200).json(updated);
+      
+      if (!updated) {
+        throw errorResponder(errorTypes.NOT_FOUND, 'Course yang ingin diupdate tidak ditemukan');
+      }
+
+      return res.status(200).json(updated);
     } catch (error) {
-      res.status(400).json({ message: error.message });
+      next(error);
     }
   }
 
-  async deleteCourse(req, res) {
+  async deleteCourse(req, res, next) {
     try {
-      await CourseService.deleteCourse(req.params.id);
-      res.status(200).json({ message: 'Course deleted successfully' });
+      const deleted = await CourseService.deleteCourse(req.params.id);
+      
+      if (!deleted) {
+         throw errorResponder(errorTypes.NOT_FOUND, 'Course yang ingin dihapus tidak ditemukan');
+      }
+
+      return res.status(200).json({ message: 'Course deleted successfully' });
     } catch (error) {
-      res.status(500).json({ message: error.message });
+      next(error);
     }
   }
 }

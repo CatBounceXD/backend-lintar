@@ -1,4 +1,4 @@
-# Project UTS Backend Programming - Kelompok 3
+# Project UTS Backend Programming - LINTAR - Kelompok 3
 
 Proyek ini adalah RESTAPI yang dibangun menggunakan Node.js, Express.js, dan MongoDB (Mongoose) sebagai tugas Ujian Tengah Semester (UTS) Backend Programming. Mensimulasikan sistem skala mini dari LINTAR  yang mencakup user, mata kuliah, jadwal, absensi, dan nilai.
 

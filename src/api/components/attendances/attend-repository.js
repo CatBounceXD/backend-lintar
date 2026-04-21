@@ -8,11 +8,29 @@ class AttendanceRepository {
 
     async findAttendancesBySchedule(scheduleId) {
         return await Attendance.find({ schedule: scheduleId })
-            //Detail mahasiswa
-            .populate('user', 'name nim') 
-            //Detail jadwal kuloah
-            .populate('schedule', 'courseName time')
+            .populate('user', 'nama no_induk') 
+            .populate({
+                path: 'schedule',
+                select: 'hari jam_mulai jam_selesai ruangan course', 
+                populate: {
+                    path: 'course',
+                    select: 'nama sks fakultas'
+                }
+            })
             .sort({ date: -1 }); 
+    }
+
+    async findAttendancesByUser(userId) {
+        return await Attendance.find({ user: userId })
+            .populate({
+                path: 'schedule',
+                select: 'hari jam_mulai jam_selesai ruangan course',
+                populate: {
+                    path: 'course',
+                    select: 'nama sks fakultas'
+                }
+            })
+            .sort({ date: -1 });
     }
 
     async findDuplicate(user, schedule, date) {

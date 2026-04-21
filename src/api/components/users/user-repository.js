@@ -22,11 +22,16 @@ async function deleteUser(id) {
   return User.findByIdAndDelete(id);
 }
 
+async function getUsersByRole(role) {
+  return User.find({ role: role });
+}
+
 module.exports = {
   getUsers,
   createUser,
   getUserByEmail,
   deleteUser,
+  getUsersByRole,
 };
 
 // Kyk Querry SQL dalam bentuk fungsi

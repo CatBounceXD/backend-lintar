@@ -1,25 +1,36 @@
 const gradeService = require('./grade-service.js');
+const { errorResponder, errorTypes } = require('../../../core/errors');
 
 class GradeController {
-  async create(req, res) {
+  async create(req, res, next) {
     try {
       const result = await gradeService.inputGrade(req.body);
-      res.status(201).json({ 
+      
+      if (!result) {
+        throw errorResponder(errorTypes.BAD_REQUEST, 'Nilai gagal diinput');
+      }
+
+      return res.status(201).json({ 
         message: 'Nilai berhasil diinput', 
         data: result 
       });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      next(error);
     }
   }
 
-  async getHistory(req, res) {
+  async getHistory(req, res, next) {
     try {
       const { studentId } = req.params;
       const history = await gradeService.getStudentHistory(studentId);
-      res.status(200).json({ data: history });
+      
+      if (!history || history.length === 0) {
+        throw errorResponder(errorTypes.NOT_FOUND, 'Riwayat tidak ditemukan');
+      }
+
+      return res.status(200).json({ data: history });
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      next(error);
     }
   }
 }

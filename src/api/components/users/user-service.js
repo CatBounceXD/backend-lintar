@@ -20,6 +20,24 @@ async function getUsers()
   return results;
 }
 
+async function getUsersByRole(accessRole) {
+  const users = await usersRepository.getUsersByRole(accessRole);
+  
+  // Format data agar password tidak ikut terkirim
+  const results = [];
+  for (let i = 0; i < users.length; i += 1) {
+    const user = users[i];
+    results.push({
+      id: user._id,
+      no_induk: user.no_induk,
+      nama: user.nama,
+      email: user.email,
+      role: user.role,
+    });
+  }
+  return results;
+}
+
 //Enkripsi
 async function createUser(no_induk, nama, email, password, role) 
 { const saltRounds = 10;
@@ -57,6 +75,7 @@ module.exports =
   createUser,
   checkLogin,
   deleteUser,
+  getUsersByRole,
 };
 
 // Process Logic
